@@ -82,7 +82,7 @@ const handlePDFExport = async (resumeId: string) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ resumeId }),
+    body: JSON.stringify({ resumeId: resumeId }),
   });
 
   const blob = await res.blob();

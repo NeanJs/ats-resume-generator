@@ -16,12 +16,13 @@ export async function POST(req: Request) {
 
     const baseUrl =
       process.env.NODE_ENV == "development"
-        ? "localhost:3000"
+        ? "http://localhost:3000"
         : process.env.BASE_URL;
     const token = process.env.BROWSERLESS_TOKEN;
 
     const url = `${baseUrl}/resume/${resumeId}/print`;
-
+    console.log("resumeId received:", resumeId);
+    console.log("browser URL:", url);
     const pdfRes = await fetch(
       `https://chrome.browserless.io/pdf?token=${token}`,
       {
