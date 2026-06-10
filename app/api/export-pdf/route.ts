@@ -14,10 +14,7 @@ export async function POST(req: Request) {
       return Response.json({ error: "Missing resumeId" }, { status: 400 });
     }
 
-    const baseUrl =
-      process.env.NODE_ENV == "development"
-        ? "http://localhost:3000"
-        : process.env.BASE_URL;
+    const baseUrl = process.env.BASE_URL;
     const token = process.env.BROWSERLESS_TOKEN;
 
     const url = `${baseUrl}/resume/${resumeId}/print`;
