@@ -3,8 +3,7 @@ import { Geist } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import Navbar from "./components/Navbar";
-import { headers } from "next/headers";
+import Navbar from "../components/Navbar";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -53,14 +52,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const headersList = headers();
-  const pathname = headersList.get("x-invoke-path") || "";
-  const isPrint = pathname.includes("/print");
   return (
     <ClerkProvider>
       <html lang="en" className={geist.variable} suppressHydrationWarning>
         <body className="min-h-screen bg-white text-gray-900 antialiased flex flex-col">
-          {!isPrint && <Navbar />}
           <main className="flex-1">{children}</main>
           <Analytics />
         </body>
