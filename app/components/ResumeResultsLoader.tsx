@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/app/lib/prisma";
-import { ResumeData } from "@/app/types/types";
+import { parseATSBreakdown, ResumeData } from "@/app/types/types";
 import { formatDistanceToNow } from "date-fns";
 import ResumeResults from "./ResumeResults";
 
@@ -17,15 +17,25 @@ export default async function ResumeResultsLoader({
   const resume = await prisma.resume.findFirst({
     where: { id: resumeId, userId: dbUser.id },
   });
-  if (!resume?.data) return notFound();
+  if (!resume?.optimizedResume) return notFound();
 
-  const typedResume = resume.data as unknown as ResumeData;
+  const typedResume = resume.optimizedResume as unknown as ResumeData;
 
   const result = {
-    atsScore: resume.atsScore,
+    jobType: resume.jobType as "corporate" | "startup" | "leadership",
+
+    atsBefore: resume.atsBefore,
+    atsAfter: resume.atsAfter,
+    atsBreakdown: parseATSBreakdown(resume.atsBreakdown),
     optimizedResume: typedResume,
     missingKeywords: resume.missingKeywords,
     coverLetter: resume.coverLetter ?? "",
+
+    changesMade: resume.changesMade,
+    confidenceScore: resume.confidenceScore ?? undefined,
+    resumeId: resume.id,
+    saved: true,
+    promptSignup: false,
   };
 
   return (

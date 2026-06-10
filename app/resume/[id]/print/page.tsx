@@ -23,7 +23,9 @@ export default async function PrintPage({
 
   return (
     <div id="resume-template">
-      <ResumeTemplate resumeData={resume.data as unknown as ResumeData} />
+      <ResumeTemplate
+        resumeData={resume.optimizedResume as unknown as ResumeData}
+      />
     </div>
   );
 }

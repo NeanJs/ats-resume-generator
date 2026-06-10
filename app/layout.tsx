@@ -1,47 +1,68 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import Navbar from "./components/Navbar";
 
-const geistSans = Geist({
+const geist = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "ApplyCraft - AI Resume & Job Application Optimizer",
+  title: {
+    default: "ApplyCraft — AI Resume Optimizer",
+    template: "%s | ApplyCraft",
+  },
   description:
-    "ApplyCraft helps you tailor your resume to any job description. Get ATS-optimized resumes, missing keywords, and AI cover letters instantly.",
+    "Paste a job description. ApplyCraft rewrites your resume to match it — ATS score, missing keywords, tailored bullets, and a cover letter in 30 seconds.",
   keywords: [
-    "ApplyCraft",
     "resume optimizer",
     "ATS resume checker",
     "AI resume writer",
     "cover letter generator",
     "job application tool",
+    "ApplyCraft",
   ],
+  metadataBase: new URL(
+    process.env.BASE_URL ?? "https://applycraft.xyz",
+  ),
+  openGraph: {
+    title: "ApplyCraft — AI Resume Optimizer",
+    description:
+      "Rewrite your resume for any job in 30 seconds. ATS score, missing keywords, tailored bullets, cover letter.",
+    url: "/",
+    siteName: "ApplyCraft",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ApplyCraft — AI Resume Optimizer",
+    description:
+      "Rewrite your resume for any job in 30 seconds. ATS score, missing keywords, tailored bullets, cover letter.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col`}
-      >
-        {" "}
-        <ClerkProvider>{children}</ClerkProvider>
-        <Analytics />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={geist.variable} suppressHydrationWarning>
+        <body className="min-h-screen bg-white text-gray-900 antialiased flex flex-col">
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Analytics />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

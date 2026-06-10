@@ -19,20 +19,52 @@ model User {
   resumes Resume[]
 }
 
+//
+// CORE RESUME ENGINE TABLE
+//
 model Resume {
-  id     String @id @default(cuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  id String @id @default(cuid())
 
-  title String @default("Untitled Resume")
-  data  Json
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
 
+  // INPUTS
+  originalResume Json
+  jobDescription String
+  jobType        String?
+  title          String  @default("Untitled Resume")
+
+  // ATS SCORING (IMPORTANT: BEFORE + AFTER)
+  atsBefore Int
+  atsAfter  Int
+
+  atsBreakdown Json? // keyword %, structure %, readability %, role match %
+
+  // OUTPUTS
+  optimizedResume Json
   coverLetter     String?
+
+  // INSIGHTS LAYER (VERY IMPORTANT FOR UX/TRUST)
   missingKeywords String[] @default([])
-  jobDescription  String?
-  atsScore        Int      @default(0)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  changesMade     String[] @default([])
+
+  // OPTIONAL QUALITY CONTROL
+  confidenceScore Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
+  @@index([createdAt])
+}
+
+//
+// TRACK ANONYMOUS USAGE (FREE TIER LIMITS)
+//
+model AnonUsage {
+  ip      String   @id
+  count   Int      @default(1)
+  resetAt DateTime
+
+  @@index([resetAt])
 }

@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { UserButton } from "@clerk/nextjs";
 import { prisma } from "@/app/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import ResumeList from "@/app/components/ResumeLists";
@@ -48,7 +47,6 @@ export default async function DashboardPage() {
 function DashboardUI({
   resumes,
   firstName,
-  email,
 }: {
   resumes: {
     id: string;
@@ -60,24 +58,6 @@ function DashboardUI({
 }) {
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Navbar */}
-      <header className="border-b border-gray-200 sticky top-0 bg-white/90 backdrop-blur-sm z-20">
-        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-5 h-5 rounded bg-gray-900 inline-block" />
-            <span className="text-sm font-semibold tracking-tight">
-              ApplyCraft
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <UserButton />
-            <span className="text-sm text-gray-400 hidden sm:block">
-              {firstName}
-            </span>
-          </div>
-        </div>
-      </header>
-
       <main className="max-w-5xl mx-auto px-6 py-12">
         {/* Page header */}
         <div className="flex items-start justify-between mb-10">
@@ -96,7 +76,7 @@ function DashboardUI({
           </div>
 
           <Link
-            href={"/tools/optimize"}
+            href={"/tailor"}
             className="bg-gray-900 text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-700 transition-all hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap cursor-pointer"
           >
             + Create Resume
@@ -157,7 +137,7 @@ function DashboardUI({
             </p>
 
             <Link
-              href="/tools/optimize"
+              href="/tailor"
               className="bg-gray-900 text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-700 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               Create your first resume →

@@ -21,8 +21,7 @@ export async function POST(req: Request) {
     const token = process.env.BROWSERLESS_TOKEN;
 
     const url = `${baseUrl}/resume/${resumeId}/print`;
-    console.log("resumeId received:", resumeId);
-    console.log("browser URL:", url);
+
     const pdfRes = await fetch(
       `https://chrome.browserless.io/pdf?token=${token}`,
       {

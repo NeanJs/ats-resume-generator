@@ -100,20 +100,39 @@ export const SampleResumeData: ResumeData = {
 };
 
 export const SampleData: ResponseData = {
-  jobType: "Technical leadership role",
-  atsScore: 87,
+  jobType: "startup",
+
+  // 🔥 NEW ATS MODEL
+  atsBefore: 58,
+  atsAfter: 72,
+  atsImprovement: 14,
+
+  resumeId: "res_8f3k2a9z",
+
+  promptSignup: true,
+  saved: false,
+
   optimizedResume: SampleResumeData,
+
   missingKeywords: [
-    "Stakeholder Management",
-    "System Architecture",
-    "CI/CD",
-    "Microservices",
-    "Kubernetes",
-    "Cross-functional Leadership",
-    "Strategic Planning",
+    "System Design",
+    "Scalability",
+    "Cloud Infrastructure",
+    "AWS",
+    "CI/CD Pipelines",
+    "Microservices Architecture",
+    "Product Ownership",
+    "Performance Optimization",
   ],
+
+  // (optional but recommended if your UI uses it later)
+  changesMade: [
+    "Rewrote bullet points for impact",
+    "Added startup-focused keywords",
+    "Improved action verbs",
+    "Reordered experience for relevance",
+  ],
+
   coverLetter:
-    "Dear Hiring Manager,\n\nI am excited to apply for the Technical Leadership position at your organization. With over five years of experience designing and delivering scalable web applications, I have developed a strong foundation in software engineering, team collaboration, and project execution.\n\nIn my current role as a Senior Full Stack Developer, I lead the development of customer-facing platforms used by thousands of users while collaborating closely with product and business stakeholders. My experience spans frontend and backend development, cloud infrastructure, performance optimization, and mentoring team members.\n\nI am particularly drawn to this opportunity because it combines technical excellence with leadership and strategic impact. I am confident that my background in building scalable systems and driving successful project outcomes would allow me to contribute meaningfully to your team.\n\nThank you for your time and consideration. I look forward to the opportunity to discuss how my experience aligns with your organization's goals.\n\nSincerely,\nJohn Doe",
+    "Dear Hiring Manager,\n\nI am writing to express my interest in the Full Stack Engineer role at your company. With over four years of experience building scalable web applications in fast-paced environments, I have developed strong expertise in both frontend and backend development, with a focus on delivering user-centric and high-performance solutions.\n\nIn my recent role as a Full Stack Developer, I worked on building and optimizing web platforms used by thousands of users. I contributed to designing RESTful APIs, improving application performance, and collaborating closely with designers and product managers to ship features quickly and efficiently.\n\nWhat excites me about this opportunity is the chance to work in a high-ownership environment where speed, impact, and innovation are prioritized. I thrive in startup settings where I can take responsibility across the stack and contribute directly to product growth.\n\nI would welcome the opportunity to bring my experience in scalable system design, modern JavaScript frameworks, and cloud-based architecture to your team.\n\nThank you for your time and consideration.\n\nSincerely,\nJohn Doe",
 };
-
-
