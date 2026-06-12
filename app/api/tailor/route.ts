@@ -88,10 +88,11 @@ export async function POST(req: Request) {
   const message = await anthropic.messages.create({
     model: "claude-sonnet-4-6",
     max_tokens: 3000,
-    messages: [
+    system: [
       {
-        role: "user",
-        content: `You are an ATS resume optimization engine. Follow these steps exactly.
+        cache_control: { type: "ephemeral", ttl: "1h" },
+        type: "text",
+        text: `You are an ATS resume optimization engine. Follow these steps exactly.
 
 ---
 
@@ -122,8 +123,6 @@ Hard rules — never break these:
 - Maximum 3 sentences for the summary. Be concise and punchy.
 - Skill category labels must be 2-3 words maximum (e.g. "Leadership", "F&B Service", "Systems").
 - Education descriptions must be one short line maximum, or omitted entirely if the degree title is self-explanatory.
-
-
 
 What you may do:
 - Reframe bullets to surface relevant impact (e.g. "built internal tool" → "reduced deploy time by automating X")
@@ -194,7 +193,6 @@ OUTPUT RULES:
   "jobType": "corporate" | "startup" | "leadership",
   "atsBefore": 0,
   "atsAfter": 0,
-
   "atsBreakdown": {
     "keywordMatch": 0,
     "structure": 0,
@@ -240,15 +238,13 @@ OUTPUT RULES:
     }[],
     "certifications"?: string[]
   }
-}
-
----
-
-RESUME:
-${resume.slice(0, 6000)}
-
-JOB DESCRIPTION:
-${jobDescription.slice(0, 2500)}`,
+}`,
+      },
+    ],
+    messages: [
+      {
+        role: "user",
+        content: `RESUME:\n${resume.slice(0, 6000)}\n\nJOB DESCRIPTION:\n${jobDescription.slice(0, 2500)}`,
       },
     ],
   });

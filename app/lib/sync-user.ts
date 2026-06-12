@@ -11,9 +11,16 @@ export async function syncUser() {
   const email = clerkUser.emailAddresses[0]?.emailAddress;
   if (!email) return null;
 
-  return prisma.user.upsert({
-    where: { clerkId: userId },
-    update: { email },
-    create: { clerkId: userId, email },
-  });
+  return prisma.user
+    .upsert({
+      where: { clerkId: userId },
+      update: { email },
+      create: { clerkId: userId, email },
+    })
+    .catch(async () => {
+      return prisma.user.update({
+        where: { email },
+        data: { clerkId: userId },
+      });
+    });
 }
