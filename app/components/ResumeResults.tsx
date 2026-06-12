@@ -269,7 +269,10 @@ export default function ResumeResults({
               </div>
             </div>
           </div>
-          <div className="border rounded-xl bg-white overflow-hidden">
+          <div
+            className="border rounded-xl bg-white overflow-hidden"
+            style={{ zoom: 0.75 }}
+          >
             <ResumeTemplate resumeData={result.optimizedResume} />
           </div>
         </section>
